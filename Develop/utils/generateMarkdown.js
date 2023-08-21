@@ -1,30 +1,38 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
-  if (license) {
-    return license.badge;
-  } else {
-    return '';
-  }
+  switch (license){
+    case 'MIT License':
+      return '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)';
+      
+    case 'Apache License 2.0':
+      return '[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)';
+    
+      default:
+      return '';  
+  };
+  
 }
 
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
-  if (license){
-    return license.link;
-  } else {
-    return '';
+  switch (license){
+    case 'MIT License':
+      return 'https://opensource.org/licenses/MIT';
+    case 'Apache License 2.0':
+      return 'https://opensource.org/licenses/Apache-2.0';
+    default:
+      return '';   
   }
 }
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
-  if (license){
-  const link = renderLicenseLink(license);
-  const badge = renderLicenseBadge(license);
-  return `${link} ${badge}`;
+  if (license !== 'Other'){
+  return `This application is licensed under the ${renderLicenseLink(license)}. Click the link for more details.
+  `
 } else {
   return '';
 }
@@ -33,9 +41,9 @@ function renderLicenseSection(license) {
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(response) {
   return `# ${response.project}
-
-## ${response.description}        
-        
+${renderLicenseBadge(response.license)}
+## ${response.description}
+               
   - ${response.why}
   - ${response.solution}
   - ${response.learn}
@@ -46,9 +54,9 @@ function generateMarkdown(response) {
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
-- [Contributing] 
-- [Tests] 
-- [Questions]
+- [Contributing](#contributing) 
+- [Tests](#tests) 
+- [Questions](#questions)
         
 ## Installation
         
@@ -63,14 +71,22 @@ ${response.usage}
 ${response.collaborators}
         
 ## License
-        
+
 ${renderLicenseSection(response.license)}
-${response.license.badge}
-${response.license.link}        
         
-## How to Contribute
+## Contributing
         
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.`;
+${response.contribute}
+
+## Tests
+
+${response.tests}
+
+## Questions
+
+GitHub: [${response.github}](https://github.com/${response.github})\   
+Please direct any questions to [${response.email}](mailto:${response.email}).
+`;
 }
 
 module.exports = generateMarkdown;

@@ -26,7 +26,7 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'What did you learn?',
+        message: 'What did you learn while making this project?',
         name: 'learn',
     },
     {
@@ -47,29 +47,39 @@ const questions = [
     {
         type: 'input',
         name: 'github',
-        message: 'Enter your GitHub Username',
+        message: 'Enter your GitHub Username:',
       },
       {
         type: 'input',
-        name: 'linkedin',
-        message: 'Enter your LinkedIn URL.',
+        name: 'email',
+        message: 'Enter your Email address:',
       },
     {
         type:'list',
         message:'Which license?',
         name:'license',        
         choices:[
-            {
-            name: 'MIT License',
-            badge: '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)',
-            link: 'https://opensource.org/licenses/MIT'
+          {
+            name: 'MIT License',            
           },
           {
-            name: 'Apache License 2.0',
-            badge: '[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)',
-            link: 'https://opensource.org/licenses/Apache-2.0'
+            name: 'Apache License 2.0',           
           },
+          {
+            name: 'Other',
+          },
+          
         ],
+    },
+    {
+        type:'input',
+        message:'Guidelines for contributing?',
+        name:'contribute',
+    },
+    {
+        type:'input',
+        message:'Instructions for testing:',
+        name:'tests',
     }
   ];
 
@@ -87,7 +97,10 @@ function writeToFile(fileName, data) {
 
 // TODO: Create a function to initialize app
 function init() {
-    inquirer.prompt(questions).then((response) => {writeToFile('README.md',response)});
+    inquirer.prompt(questions).then((response) => {
+        writeToFile('README.md',response);
+        console.log(response);
+    });
 }
 
 // Function call to initialize app
